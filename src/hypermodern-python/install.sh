@@ -91,14 +91,6 @@ EOF
         echo -e "fpath=(\${ASDF_DIR}/completions \$fpath)" >>/etc/zsh/zshrc
         echo -e "autoload -Uz compinit && compinit" >>/etc/zsh/zshrc
     fi
-    # if command -v pwsh & >/dev/null && ( [[ "$(cat /opt/microsoft/powershell/7/profile.ps1)" != *"$ASDF_BASEPATH"* ]] || [ ! -f "/opt/microsoft/powershell/7/profile.ps1" ] ); then
-    #     if [ -f "/opt/microsoft/powershell/7/profile.ps1" ]; then
-    #         echo "Updating /opt/microsoft/powershell/7/profile.ps1"
-    #     else
-    #         touch /opt/microsoft/powershell/7/profile.ps1
-    #     fi
-    #     echo -e ". $ASDF_BASEPATH/asdf.ps1" >>/opt/microsoft/powershell/7/profile.ps1
-    # fi
     if [ -f "/etc/fish/config.fish" ] && [[ "$(cat /etc/fish/config.fish)" != *"$ASDF_BASEPATH"* ]]; then
         echo "Updating /etc/fish/config.fish"
         echo -e "source $ASDF_BASEPATH/asdf.fish" >>/etc/fish/config.fish
@@ -125,7 +117,7 @@ install_python_via_asdf() {
     VERSION=$1
 
 	set -e
-	
+
     su - "$_REMOTE_USER" <<EOF
         . $_REMOTE_USER_HOME/.asdf/asdf.sh
 
@@ -183,15 +175,6 @@ ensure_supporting_tools_are_installed() {
         else
             echo "pipx is already installed"
         fi
-
-        ensure_pipx_app_is_installed cookiecutter
-        ensure_pipx_app_is_installed poetry
-        ensure_pipx_app_is_installed nox
-        ensure_pipx_injection nox nox-poetry
-        # pipx install cookiecutter
-        # pipx install poetry
-        # pipx install nox
-        # pipx inject nox nox-poetry
 EOF
 }
 
